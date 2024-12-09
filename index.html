@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <title>DASH Player</title>
+    <script src="https://cdn.dashjs.org/latest/dash.all.min.js"></script>
+    <style>
+        video {
+            width: 50vw;
+        }
+
+        .urlInput {
+            width: calc(50vw - 9em);
+        }
+
+        .loadButton {
+            width: 8em;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <video id="video" controls>
+            <track id="defaultTrack" default kind="captions" src="vtt/test.vtt" />
+        </video>
+    </div>
+    <div>
+        <input type="text" id="videoUrlInput" class="urlInput" placeholder="Enter MPEG-DASH URL">
+        <button id="loadVideoButton" class="loadButton" onclick="loadVideo()">Load Video</button>
+    </div>
+    <!-- <div>
+        <input type="text" id="vttUrlInput" class="urlInput" placeholder="Enter WebVTT URL">
+        <button id="loadVTTButton" class="loadButton" onclick="loadCaption()">Load Caption</button>
+    </div> -->
+    <script>
+        var player = dashjs.MediaPlayer().create();
+
+        function loadVideo() {
+            var video = document.getElementById('video');
+            var url = document.getElementById("videoUrlInput").value; // MPEG-DASH URLをここに入力
+            if (url) {
+                player.initialize(video, url, false);
+            } else {
+                alert("Please enter a valid URL");
+            }
+        }
+
+        // function loadCaption() {
+        //     var track = document.getElementById('defaultTrack');
+        //     var trackurl = document.getElementById("vttUrlInput").value; // VTT URLをここに入力 (オリジンのせいか上手く動かずとりあえず断念)
+        //     if (trackurl) {
+        //         document.getElementById("defaultTrack").src = trackurl;
+        //     } else {
+        //         alert("Please enter a valid URL");
+        //     }
+        // }
+    </script>
+    <div>
+        <p>ヒント</p>
+        <ul>
+            <li>MPEG-DASHリンク</li>
+            <ul>
+                <li><a
+                        href="https://reference.dashif.org/dash.js/nightly/samples/dash-if-reference-player/index.html">Dash.jsレファレンスプレイヤー</a>:
+                    StreamにMPEG-DASHリンクがいくつかある<br>例: https://dash.akamaized.net/akamai/bbb_30fps/bbb_30fps.mpd</li>
+            </ul>
+        </ul>
+    </div>
+</body>
+
+</html>
